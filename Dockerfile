@@ -13,4 +13,4 @@ COPY --from=build-stage /install /usr/local
 RUN rm -rf /install
 RUN mkdir -p /app
 WORKDIR /app
-COPY ./script/src/*.py .
+COPY ./script/src/*.py/ .
