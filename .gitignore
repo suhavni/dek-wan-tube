@@ -1,1 +1,6 @@
-.DS_Store
+# extra temp files we don't need
+**/.DS_Store
+**/__pycache__
+
+# test resources
+script/resources
