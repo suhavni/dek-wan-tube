@@ -12,8 +12,7 @@ RUN apk add --no-cache ffmpeg imagemagick
 COPY --from=build-stage /install /usr/local
 RUN rm -rf /install
 RUN mkdir -p /app
-COPY ./docker-entrypoint.sh ./app
 WORKDIR /app
-RUN chmod +x docker-entrypoint.sh
 COPY ./src/*.py ./
-ENTRYPOINT [ "./docker-entrypoint.sh" ]
+ENTRYPOINT [ "python", "main.py" ]
+CMD [ "generate_thumbnail", "input.mp4", "output.gif" ]
