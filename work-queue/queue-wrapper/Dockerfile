@@ -8,8 +8,8 @@ ENV PIP_NO_CACHE_DIR=1
 RUN pip install --prefix=/install flask redis gunicorn
 
 
+# Stage 2
 FROM python:3.9.12-alpine3.15 as production-stage
-# Copy everthing from . to /app inside the 'box'
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -17,6 +17,7 @@ ENV PYTHONUNBUFFERED=1
 COPY --from=build-stage /install /usr/local
 RUN rm -rf /install
 
+# Copy everthing from . to /app inside the 'box'
 COPY . /app
 WORKDIR /app
 

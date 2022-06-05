@@ -53,7 +53,10 @@ jobs:
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     - name: Compose images
-      run: cd work-queue && docker compose up -d
+      run: |
+        cd work-queue && docker compose up -d \
+        --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-work-queue:${{ steps.vars.outputs.sha_short }} \
+        --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-work-queue:latest
     - name: Publish the image
       run: |
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/p2-work-queue:${{ steps.vars.outputs.sha_short }}
