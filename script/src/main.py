@@ -16,4 +16,7 @@ def main():
     func(in_filename=argv[2], out_filename=argv[3])
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except:
+        print("Input file was not found")
