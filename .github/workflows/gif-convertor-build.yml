@@ -28,7 +28,7 @@ jobs:
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     - name: Build image
       run: |
-        docker build . --file script/Dockerfile --no-cache \
+        cd script && docker build . --file Dockerfile --no-cache \
         --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-gif-convertor:${{ steps.vars.outputs.sha_short }} \
         --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-gif-convertor:latest
     - name: Publish the image
