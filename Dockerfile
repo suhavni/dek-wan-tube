@@ -13,4 +13,7 @@ COPY --from=build-stage /install /usr/local
 RUN rm -rf /install
 RUN mkdir -p /app
 WORKDIR /app
+COPY ./script/docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
 COPY ./script/src/*.py ./
+ENTRYPOINT [ "./docker-entrypoint.sh" ]
