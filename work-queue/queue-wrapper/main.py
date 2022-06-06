@@ -3,7 +3,6 @@ import json
 import redis
 from flask import Flask, jsonify, request
 
-
 app = Flask(__name__)
 
 class RedisResource:

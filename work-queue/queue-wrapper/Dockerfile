@@ -22,7 +22,7 @@ COPY . /app
 WORKDIR /app
 
 # How to run it when we start up the box?
-ENTRYPOINT ["gunicorn", "-b 0.0.0.0:5000", "-w 2", "main:app"]
+ENTRYPOINT ["gunicorn", "-b 0.0.0.0:5000", "-w 2", "work-queue.queue-wrapper.main:app"]
 
 # ENV FLASK_APP=main
 # CMD ["flask", "run", "--host", "0.0.0.0"]
