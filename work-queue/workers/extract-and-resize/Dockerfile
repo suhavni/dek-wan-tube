@@ -22,4 +22,4 @@ COPY . /app
 WORKDIR /app
 
 # How to run it when we start up the box?
-ENTRYPOINT ["python", "extract_worker.py"]
+ENTRYPOINT ["python", "work-queue.workers.extract-and-resize.extract_worker.py"]

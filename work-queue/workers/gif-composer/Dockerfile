@@ -22,4 +22,4 @@ COPY . /app
 WORKDIR /app
 
 # How to run it when we start up the box?
-ENTRYPOINT ["python", "gif_composer_worker.py"]
+ENTRYPOINT ["python", "work-queue.workers.gif-composer.gif_composer_worker.py"]

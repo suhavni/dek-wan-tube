@@ -15,3 +15,10 @@ spec:
             name: p2-minio
             port:
               number: 80
+      - path: /wq
+        pathType: Prefix
+        backend:
+          service:
+            name: p2-queue-wrapper
+            port:
+              number: 80

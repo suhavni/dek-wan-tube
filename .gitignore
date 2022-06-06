@@ -3,8 +3,9 @@
 **/__pycache__
 
 # test resources
-script/resources
+**/resources
 
 # kubernetes secrets
 k8s/dockerconfigjson.yaml
+k8s/minio-secret.yaml
 minio-secret.yaml

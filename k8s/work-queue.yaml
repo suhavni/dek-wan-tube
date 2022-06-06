@@ -2,36 +2,39 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: queue-wrapper
+  name: p2-queue-wrapper
 spec:
   selector:
-    app: queue-wrapper
+    app: p2-queue-wrapper
   type:  ClusterIP
   ports:
   - name:  http
-    port:  5000
+    port:  80
     targetPort:  5000
 ---
 # Work Queue Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: queue-wrapper
+  name: p2-queue-wrapper
   labels:
-    app: p1-backend
+    app: p2-queue-wrapper
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: queue-wrapper
+      app: p2-queue-wrapper
   template:
     metadata:
       labels:
-        app: queue-wrapper
+        app: p2-queue-wrapper
     spec:
       containers:
       - name: backend 
         image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-queue-wrapper
         imagePullPolicy: Always
+        env:
+        - name: REDIS_QUEUE
+          value: p2-redis-pvc
       imagePullSecrets:
       - name: dockerconfigjson-github-com
