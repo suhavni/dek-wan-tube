@@ -7,3 +7,4 @@ script/resources
 
 # kubernetes secrets
 k8s/dockerconfigjson.yaml
+minio-secret.yaml
