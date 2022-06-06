@@ -6,6 +6,7 @@ metadata:
 spec:
   selector:
     app: p2-minio
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
@@ -24,31 +25,11 @@ spec:
   resources:
     requests:
       storage: 1Gi
-# ---
-# # Persistent Volume
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#    name: p2-pv
-# spec:
-#   capacity:
-#     storage: 1Gi
-#   volumeMode: Filesystem
-#   accessModes:
-#   - ReadWriteOnce
-#   persistentVolumeReclaimPolicy: Retain
-#   persistentVolumeClaim:
-#     claimName: p2-pv-claim
-#   storageClassName: local-storage
-#   local:
-#     #  might need to change this
-#     path: /minio-volume/test
 ---
 # Deployment
-apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  # This name uniquely identifies the Deployment
   name: p2-minio
 spec:
   selector:
@@ -59,28 +40,26 @@ spec:
   template:
     metadata:
       labels:
-        # Label is used as selector in the service.
         app: p2-minio
     spec:
       containers:
       - name: minio
-        # Pulls the default Minio image from Docker Hub
         image: minio/minio:latest
         args:
         - server
         - /storage
+        # - '--console-address ":9000"'
         env:
         # Change this to secret
-        - name: MINIO_ACCESS_KEY
+        - name: MINIO_ROOT_USER
           value: "minio"
-        - name: MINIO_SECRET_KEY
+        - name: MINIO_ROOT_PASSWORD
           value: "minio123"
         ports:
         - containerPort: 9000
           hostPort: 9000
-        # Mount the volume into the pod
         volumeMounts:
-        - name: p2-vc # must match the volume name, above
+        - name: p2-vc
           mountPath: "/storage"
       volumes:
       - name: p2-vc
