@@ -4,3 +4,6 @@
 
 # test resources
 script/resources
+
+# secret file
+minio-secret.yaml
