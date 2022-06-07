@@ -8,8 +8,8 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 class RedisResource:
-    # REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
-    REDIS_QUEUE_LOCATION = 'localhost'
+    REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
+    # REDIS_QUEUE_LOCATION = 'localhost'
     host, *port_info = REDIS_QUEUE_LOCATION.split(':')
     port = tuple()
     if port_info:
