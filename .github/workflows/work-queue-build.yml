@@ -55,8 +55,8 @@ jobs:
     - name: Build image
       run: |
         docker build . --file Dockerfile --no-cache \
-        --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-queue-wrapper:${{ steps.vars.outputs.sha_short }} \
-        --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-queue-wrapper:latest
+        --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-worker:${{ steps.vars.outputs.sha_short }} \
+        --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-worker:latest
     - name: Publish the image
       run: |
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/p2-worker:${{ steps.vars.outputs.sha_short }}
