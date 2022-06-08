@@ -2,7 +2,7 @@ import ffmpeg
 
 import os
 
-def extract_certain_scene(in_filename: str) -> None:
+def extract_certain_scene(in_filename: str, out_filename:str) -> None:
     probe = ffmpeg.probe(in_filename)
     vid_len = float(probe['streams'][0]['duration'])
     # 9 / 15 because personally i like it more than 2 / 3
@@ -13,18 +13,20 @@ def extract_certain_scene(in_filename: str) -> None:
         .filter('scale', 600, -1)
         .filter('fps', fps='6', round='up')
         .trim(start_frame=0, end_frame=60)
-        .output('Image%02d.jpg', start_number=0)
+        .output('Image%02d.jpg', start_number=0) # change this
         .overwrite_output()
         .run(quiet=True)
     )
-    
 
-def generate_thumbnail(in_filename: str, out_filename: str) -> None:
-    extract_certain_scene(in_filename=in_filename)
-
-    os.system(f'convert -delay 10 -loop 0 Image*.jpg {out_filename}')
+def gifify_certain_scene(in_filename: str, out_filename: str) -> None:
+    os.system(f'convert -delay 10 -loop 0 Image*.jpg {out_filename}') # change this
     os.system(f'rm -rf Image*.jpg')
 
+def generate_thumbnail(in_filename: str, out_filename: str) -> None:
+    extract_certain_scene(in_filename=in_filename, out_filename=out_filename)
+
+    gifify_certain_scene(in_filename=str, out_filename=out_filename)
+    
 
 def extract_images(in_filename: str) -> None:
     probe = ffmpeg.probe(in_filename)

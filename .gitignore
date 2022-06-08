@@ -1,6 +1,7 @@
 # extra temp files we don't need
 **/.DS_Store
 **/__pycache__
+**/*.rdb
 
 # test resources
 **/resources

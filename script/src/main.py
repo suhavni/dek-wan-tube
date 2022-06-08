@@ -3,7 +3,9 @@ from utility import *
 
 FUNCTIONS = {
     'generate_thumbnail' : generate_thumbnail,
-    'extract_and_gifify' : extract_and_gifify
+    'extract_and_gifify' : extract_and_gifify,
+    'extract' : extract_certain_scene,
+    'gif_composer' : gifify_certain_scene
 }
 
 def main():
