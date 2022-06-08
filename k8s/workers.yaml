@@ -1,40 +1,40 @@
-# # Extract and Resize Worker Service
-# kind: Service
-# apiVersion: v1
-# metadata:
-#   name: p2-extract-resize-worker
-# spec:
-#   selector:
-#     app: p2-extract-resize-worker
-#   type:  ClusterIP
-#   ports:
-#   - name:  http
-#     port:  80
-#     targetPort:  5000
-# ---
-# # Work Queue Deployment
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: p2-extract-resize-worker
-#   labels:
-#     app: p2-extract-resize-worker
-# spec:
-#   replicas: 3
-#   selector:
-#     matchLabels:
-#       app: p2-extract-resize-worker
-#   template:
-#     metadata:
-#       labels:
-#         app: p2-extract-resize-worker
-#     spec:
-#       containers:
-#       - name: backend 
-#         image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-queue-wrapper
-#         imagePullPolicy: Always
-#         env:
-#         - name: REDIS_QUEUE
-#           value: p2-extract-resize-worker
-#       imagePullSecrets:
-#       - name: dockerconfigjson-github-com
+# Worker Service
+kind: Service
+apiVersion: v1
+metadata:
+  name: p2-worker
+spec:
+  selector:
+    app: p2-worker
+  type:  LoadBalancer
+  ports:
+  - protocol: "TCP"
+    port:  6000
+    targetPort:  5000
+---
+# Work Queue Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p2-worker
+  labels:
+    app: p2-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: p2-worker
+  template:
+    metadata:
+      labels:
+        app: p2-worker
+    spec:
+      containers:
+      - name: backend 
+        image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-worker
+        imagePullPolicy: Always
+        env:
+        - name: REDIS_QUEUE
+          value: p2-redis-pvc
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
