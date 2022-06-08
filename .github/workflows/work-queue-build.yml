@@ -54,7 +54,7 @@ jobs:
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     - name: Build image
       run: |
-        cd docker build . --file Dockerfile --no-cache \
+        docker build . --file Dockerfile --no-cache \
         --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-queue-wrapper:${{ steps.vars.outputs.sha_short }} \
         --tag ghcr.io/${{ env.BASE_IMG_NAME }}/p2-queue-wrapper:latest
     - name: Publish the image
