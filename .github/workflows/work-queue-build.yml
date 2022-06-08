@@ -2,7 +2,7 @@ name: Build Work Queue CI
 
 on:
   push:
-    branches: [ main, test-work-queue ]
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
