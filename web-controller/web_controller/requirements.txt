@@ -1,0 +1,6 @@
+flask
+gunicorn
+Flask-SQLAlchemy
+Flask-Minio
+redis
+rq

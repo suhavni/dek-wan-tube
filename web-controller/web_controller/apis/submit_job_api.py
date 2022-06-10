@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from flask import current_app as app
-from itsdangerous import json
 from web_controller import db, minio_client
 from web_controller.model import Job
 from web_controller.utils.work_queue import send_to_worker

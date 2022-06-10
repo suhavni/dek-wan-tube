@@ -5,7 +5,8 @@ WORKDIR /install
 # Install all the requirements
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
-RUN pip install --prefix=/install flask gunicorn
+COPY ./web_controller/requirements.txt ./
+RUN pip install --prefix=/install -r requirements.txt
 
 
 # Stage 2
