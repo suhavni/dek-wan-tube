@@ -48,22 +48,3 @@ def compose_worker(in_filename, out_filename):
     else:
         err = err.decode(sys.stdin.encoding)
         # TODO: update status in database -> error occured when composing gif (err, return_code)
-    
-
-def worker(function, body):
-    in_filename = body.get('input_file', 'input.mp4')
-    out_filename = body.get('output_file', 'output.mp4')
-
-    process = subprocess.Popen(f'python ../resources/main.py {function} {in_filename} {out_filename}', shell=True)
-
-    return_code = process.wait()
-
-
-    if return_code == os.EX_OK and function == 'extract':
-        RedisResource.composer_queue.enqueue_call(worker, args=['gif_composer', body])
-    elif return_code == os.EX_OK:
-        pass
-    else:
-        err = err.decode(sys.stdin.encoding)
-        return return_code, err
-    return return_code, 'OK'
