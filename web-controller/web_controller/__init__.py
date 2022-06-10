@@ -1,7 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_minio import Minio
+import os
 
 db = SQLAlchemy()
+minio = Minio(
+	os.getenv("MINIO_ENDPOINT", "localhost"),
+	access_key=os.getenv("MINIO_ACCES_KEY", "pkinwza"),
+	secret_key=os.getenv("MINIO_SECRET_KEY", "saobangpho1234")
+)
 
 def create_app():
 	app = Flask(__name__, instance_relative_config=True)
