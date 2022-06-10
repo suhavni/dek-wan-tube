@@ -1,6 +1,5 @@
 import os
 import logging
-from sqlite3 import connect
 from redis import Redis
 from rq import Queue
 
@@ -31,7 +30,6 @@ def worker(function, body):
     # ------------------------
     # python_cmd = ['python', '../resources/main.py', function, in_filename, out_filename]
     # pid = os.fork()
-    # if pid < 0:
     #     os._exit(-1)
     # elif not pid:
     #     os.execvp(python_cmd[0], python_cmd)
