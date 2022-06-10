@@ -4,9 +4,18 @@ services:
     image: redis:5-alpine
     ports:
       - '6379:6379'
-  worker:
+  extract-worker:
     build:
       context: .
+      dockerfile: Dockerfile-extract
+    depends_on:
+      - "redis"
+    environment:
+      - REDIS_QUEUE=redis
+  compose-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-compose
     depends_on:
       - "redis"
     environment:

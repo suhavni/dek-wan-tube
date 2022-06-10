@@ -18,7 +18,7 @@ RUN rm -rf /install
 
 # Copy everthing from . to /app inside the 'box'
 
-COPY work-queue/src/worker.py /app/worker.py
+COPY work-queue/src/extract_worker.py /app/worker.py
 COPY work-queue/src/utility.py /app/utility.py
 COPY script/src/ /resources/
 WORKDIR /app
