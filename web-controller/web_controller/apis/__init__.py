@@ -1,1 +1,1 @@
-from web_controller import minio
+from web_controller import minio_client
