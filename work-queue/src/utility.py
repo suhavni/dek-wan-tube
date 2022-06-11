@@ -31,6 +31,7 @@ def extract_worker(in_filename, out_filename):
         # TODO: update status in database -> extracted images from video successful
         RedisResource.composer_queue.enqueue_call(compose_worker, args=[in_filename, out_filename])
     else:
+        _, err = process.communicate()
         err = err.decode(sys.stdin.encoding)
         # TODO: update status in database -> error occured when extracting image (err, return_code)
     
@@ -46,5 +47,6 @@ def compose_worker(in_filename, out_filename):
         # TODO: update status in database -> composed images to gif successful
         pass
     else:
+        _, err = process.communicate()
         err = err.decode(sys.stdin.encoding)
         # TODO: update status in database -> error occured when composing gif (err, return_code)

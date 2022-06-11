@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from utility import RedisResource, worker
+from utility import RedisResource, extract_worker
 
 app = Flask(__name__)
 
@@ -12,5 +12,5 @@ def extract_and_resize():
     in_filename = body.get('input_file', 'input.mp4')
     out_filename = body.get('output_file', 'output.mp4')
 
-    RedisResource.extract_queue.enqueue_call(worker, args=[in_filename, out_filename])
+    RedisResource.extract_queue.enqueue_call(extract_worker, args=[in_filename, out_filename])
     return jsonify({'status': 'OK'})
