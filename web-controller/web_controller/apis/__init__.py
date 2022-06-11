@@ -1,1 +1,0 @@
-from web_controller import minio_client

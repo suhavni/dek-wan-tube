@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from flask import current_app as app
-from web_controller import db, minio_client
-from web_controller.model import Job
+from web_controller import *
+# from web_controller.model import Job
 from web_controller.utils.work_queue import send_to_worker
 
 
@@ -17,9 +17,9 @@ def submit_job():
 		return jsonify(error={"output_file": "this field is required"})
 	# submit job to work queue
 	# TODO: need job id from send_to_work function
-	worker_id = send_to_worker(job_detail)
+	send_to_worker(job_detail)
 
 	# TODO: update to database
 	# ....
 
-	return jsonify(job_id=worker_id)
+	return jsonify(job_id="work")

@@ -4,21 +4,10 @@ import logging
 # from rq import Queue
 import subprocess
 import sys
-from work_queue import RedisResource
+import web_controller
 
 LOG = logging
 
-# class RedisResource:
-#     REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
-#     host, *port_info = REDIS_QUEUE_LOCATION.split(':')
-#     port = tuple()
-#     if port_info:
-#         port, *_ = port_info
-#         port = (int(port),)
-
-#     conn = Redis(host=host, *port)
-#     extract_queue = Queue('extract', connection=conn)
-#     composer_queue = Queue('composer', connection=conn)
 
 def extract_worker(in_filename, out_filename):
     # FIXME: make the file work such that it takes input from MinIO and outputs into MinIO
@@ -30,8 +19,9 @@ def extract_worker(in_filename, out_filename):
 
     if return_code == os.EX_OK:
         # TODO: update status in database -> extracted images from video successful
-        RedisResource.composer_queue.enqueue_call(compose_worker, args=[in_filename, out_filename])
+        web_controller.RedisResource.composer_queue.enqueue_call(compose_worker, args=[in_filename, out_filename])
     else:
+        _, err = process.communicate()
         err = err.decode(sys.stdin.encoding)
         # TODO: update status in database -> error occured when extracting image (err, return_code)
     
@@ -47,5 +37,6 @@ def compose_worker(in_filename, out_filename):
         # TODO: update status in database -> composed images to gif successful
         pass
     else:
+        _, err = process.communicate()
         err = err.decode(sys.stdin.encoding)
         # TODO: update status in database -> error occured when composing gif (err, return_code)

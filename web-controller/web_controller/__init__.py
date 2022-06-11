@@ -1,14 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_minio import Minio
+from minio import Minio
 import os
 from redis import Redis
 from rq import Queue
+# from .apis import submit_job_api
 
-
-# Connect job database, minio server, redis server
 db = SQLAlchemy()
-minio_client = Minio()
 
 class RedisResource:
     REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
@@ -22,20 +20,26 @@ class RedisResource:
     extract_queue = Queue('extract', connection=conn)
     composer_queue = Queue('composer', connection=conn)
 
+class MinioConnect:
+	minio_client = Minio(
+		os.getenv("MINIO_ENDPOINT", "127.0.0.1:9000"),
+		access_key="pkinwza",
+		secret_key="saobangpho1234",
+		secure=False
+	)
+
+
 def create_app():
+	# 	from .model import Job
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_object("config.Config")
 
-	minio_client = Minio(
-		os.getenv("MINIO_ENDPOINT", "localhost"),
-		access_key=os.getenv("MINIO_ACCES_KEY", "pkinwza"),
-		secret_key=os.getenv("MINIO_SECRET_KEY", "saobangpho1234")
-	)
+	# print(MinioConnect.minio_client.list_buckets())
 
 	db.init_app(app)
 	with app.app_context():
 		from .model import Job
-		from . import apis
+		# from . import apis
 
 		db.create_all()
 
