@@ -20,12 +20,20 @@ services:
       - "redis"
     environment:
       - REDIS_QUEUE=redis
-  # queue-wrapper:
-  #   build:
-  #     context: work-queue/src/
-  #   depends_on:
-  #     - "redis"
-  #   environment:
-  #     - REDIS_QUEUE=redis
-  #   ports:
-  #     - '5000:5000'
+  update-status-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-update
+    depends_on:
+      - "redis"
+    environment:
+      - REDIS_QUEUE=redis
+  web-controller:
+    build:
+      context: web-controller
+    depends_on:
+      - "redis"
+    environment:
+      - REDIS_QUEUE=redis
+    ports:
+      - '5000:5000'

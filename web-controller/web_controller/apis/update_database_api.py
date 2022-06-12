@@ -18,4 +18,5 @@ def update_database():
 	job = Job.query.get(int(job_detail.get("id")))
 	job.status = job_detail.get("status")
 
+	db.session.commit()
 	return jsonify(status="Updated", id=int(job_detail.get("id")))
