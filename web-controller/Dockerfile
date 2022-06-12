@@ -23,7 +23,7 @@ RUN rm -rf /install
 
 COPY ./config.py /app/config.py
 COPY ./web_controller /app/web_controller
-WORKDIR /app/web_controller
+WORKDIR /app
 
 # How to run it when we start up the box?
 ENTRYPOINT ["gunicorn", "-b 0.0.0.0:5000", "-w 2", "web_controller.wsgi:app"]
