@@ -1,0 +1,68 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: p2-web-controller
+spec:
+  selector:
+    app: p2-web-controller
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p2-web-controller
+  labels:
+    app: p2-web-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: p2-web-controller
+  template:
+    metadata:
+      labels:
+        app: p2-web-controller
+    spec:
+      containers:
+      - name: p1-backend-others
+        # TODO: Change image name  
+        image: ghcr.io/cs-muic/scalable-p1-sudo-lucifer/p1-backend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+          - name: FLASK_APP
+            valueFrom:
+              secretKeyRef:
+                name: p2-web-controller-secret
+                key: application
+          - name: FLASK_DATABASE_URI
+            valueFrom:
+              secretKeyRef:
+                name: p2-web-controller-secret
+                key: dbconnector
+          - name: MINIO_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: p2-web-controller-secret
+                key: minio-endpoint
+          - name: MINIO_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: p2-web-controller-secret
+                key: minio-access-key
+          - name: MINIO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: p2-web-controller-secret
+                key: minio-secret-key
+          - name: REDIS_QUEUE
+            valueFrom:
+              secretKeyRef:
+                name: p2-web-controller-secret
+                key: redis-queue
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com

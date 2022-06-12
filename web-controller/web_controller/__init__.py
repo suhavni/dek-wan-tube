@@ -18,7 +18,6 @@ class MinioConnect:
 
 
 def create_app():
-	# 	from .model import Job
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_object("config.Config")
 

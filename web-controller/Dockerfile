@@ -6,6 +6,7 @@ WORKDIR /install
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 COPY ./web_controller/requirements.txt ./
+RUN apk add build-base
 RUN pip install --prefix=/install -r requirements.txt
 
 
@@ -20,9 +21,9 @@ RUN rm -rf /install
 
 # Copy everthing from . to /app inside the 'box'
 
-# COPY main.py /app/main.py   
-# COPY utility.py /app/utility.py
-WORKDIR /app
+COPY ./config.py /app/config.py
+COPY ./web_controller /app/web_controller
+WORKDIR /app/web_controller
 
 # How to run it when we start up the box?
-ENTRYPOINT ["gunicorn", "-b 0.0.0.0:5000", "-w 2", "main:app"]
+ENTRYPOINT ["gunicorn", "-b 0.0.0.0:5000", "-w 2", "web_controller.wsgi:app"]

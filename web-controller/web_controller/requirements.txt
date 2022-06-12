@@ -1,6 +1,8 @@
-flask
+Flask
 gunicorn
 Flask-SQLAlchemy
-Flask-Minio
+SQLAlchemy
 redis
 rq
+minio
+PyMySQL

@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: p2-job-database
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 3306
@@ -66,6 +67,7 @@ spec:
               key: password
         ports:
         - containerPort: 3306
+          hostPort: 3306
         volumeMounts:
         - name: p2-persistent-storage
           mountPath: /var/lib/mysql
