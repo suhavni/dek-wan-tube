@@ -26,7 +26,7 @@ def create_app():
 	db.init_app(app)
 	with app.app_context():
 		# from .model import Job
-		from .apis import submit_job_api, update_database_api
+		from .apis import submit_job_api, update_database_api, extract_all_video_api, gif_list_api
 
 		db.create_all()
 
