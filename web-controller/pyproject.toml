@@ -13,6 +13,7 @@ SQLAlchemy = "^1.4.37"
 redis = "^4.3.3"
 rq = "1.6.1"
 minio = "^7.1.8"
+PyMySQL = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 
