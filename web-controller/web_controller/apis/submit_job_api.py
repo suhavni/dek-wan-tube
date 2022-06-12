@@ -5,7 +5,7 @@ from web_controller import *
 from web_controller.utils.work_queue import send_to_worker
 
 
-@app.route("/submit-job", methods=['POST'])
+@app.route("/api/submit-job", methods=['POST'])
 def submit_job():
 	job_detail = request.json
 	# serializer-like

@@ -5,7 +5,7 @@ WORKDIR /install
 # Install all the requirements
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
-RUN pip install --prefix=/install redis rq ffmpeg-python
+RUN pip install --prefix=/install redis rq
 
 # Stage 2
 FROM python:3.9.12-alpine3.15 as production-stage
@@ -18,10 +18,9 @@ RUN rm -rf /install
 
 # Copy everthing from . to /app inside the 'box'
 
-COPY web-controller/worker_compose.py /app/worker.py
+COPY web-controller/worker_update_status.py /app/worker.py
 COPY web-controller/web_controller/utils/worker_utility.py /app/web_controller/utils/worker_utility.py
 COPY web-controller/web_controller/utils/__init__.py /app/web_controller/utils/__init__.py
-COPY script/src/ /resources/
 WORKDIR /app
 
 # How to run it when we start up the box?

@@ -9,6 +9,7 @@
 # kubernetes secrets
 k8s/dockerconfigjson.yaml
 k8s/minio-secret.yaml
+k8s/job-database-secret.yaml
 minio-secret.yaml
 job-database-secret.yaml
 web-controller-secret.yaml
