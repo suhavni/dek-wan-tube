@@ -1,6 +1,6 @@
 from flask import request
-from web_controller.utils.worker_utility import extract_worker
-from web_controller import *
+from .worker_utility import extract_worker, RedisResource
+# from worker_utility import RedisResource
 
 def send_to_worker(body):
     # body = request.json

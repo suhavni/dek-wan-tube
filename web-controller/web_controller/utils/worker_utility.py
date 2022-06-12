@@ -1,13 +1,24 @@
 import os
 import logging
-# from redis import Redis
-# from rq import Queue
+from redis import Redis
+from rq import Queue
 import subprocess
 import sys
-import web_controller
+# import web_controller
 
 LOG = logging
 
+class RedisResource:
+    REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
+    host, *port_info = REDIS_QUEUE_LOCATION.split(':')
+    port = tuple()
+    if port_info:
+        port, *_ = port_info
+        port = (int(port),)
+
+    conn = Redis(host=host, *port)
+    extract_queue = Queue('extract', connection=conn)
+    composer_queue = Queue('composer', connection=conn)
 
 def extract_worker(in_filename, out_filename):
     # FIXME: make the file work such that it takes input from MinIO and outputs into MinIO
@@ -19,7 +30,7 @@ def extract_worker(in_filename, out_filename):
 
     if return_code == os.EX_OK:
         # TODO: update status in database -> extracted images from video successful
-        web_controller.RedisResource.composer_queue.enqueue_call(compose_worker, args=[in_filename, out_filename])
+        RedisResource.composer_queue.enqueue_call(compose_worker, args=[in_filename, out_filename])
     else:
         _, err = process.communicate()
         err = err.decode(sys.stdin.encoding)
