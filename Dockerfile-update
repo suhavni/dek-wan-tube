@@ -5,7 +5,7 @@ WORKDIR /install
 # Install all the requirements
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
-RUN pip install --prefix=/install redis rq
+RUN pip install --prefix=/install redis rq requests
 
 # Stage 2
 FROM python:3.9.12-alpine3.15 as production-stage
@@ -25,6 +25,3 @@ WORKDIR /app
 
 # How to run it when we start up the box?
 ENTRYPOINT ["python", "worker.py"]
-
-# ENV FLASK_APP=main
-# CMD ["flask", "run", "--host", "0.0.0.0"]
