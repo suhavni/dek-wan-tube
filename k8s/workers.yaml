@@ -79,3 +79,44 @@ spec:
           value: p2-redis-pvc
       imagePullSecrets:
       - name: dockerconfigjson-github-com
+---
+# Update Status Worker Service
+kind: Service
+apiVersion: v1
+metadata:
+  name: p2-update-status-worker
+spec:
+  selector:
+    app: p2-update-status-worker
+  type:  LoadBalancer
+  ports:
+  - protocol: "TCP"
+    port:  6000
+    targetPort:  5000
+---
+# Update Status Worker Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p2-update-status-worker
+  labels:
+    app: p2-update-status-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: p2-update-status-worker
+  template:
+    metadata:
+      labels:
+        app: p2-update-status-worker
+    spec:
+      containers:
+      - name: backend 
+        image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-update-status-worker
+        imagePullPolicy: Always
+        env:
+        - name: REDIS_QUEUE
+          value: p2-redis-pvc
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
