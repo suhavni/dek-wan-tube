@@ -16,10 +16,6 @@ def submit_job():
 	elif (job_detail.get("output_file", None) is None):
 		return jsonify(error={"output_file": "this field is required"})
 	# submit job to work queue
-	# TODO: need job id from send_to_work function
-	send_to_worker(job_detail)
+	job_id = send_to_worker(job_detail)
 
-	# TODO: update to database
-	# ....
-
-	return jsonify(job_id="work")
+	return jsonify(job_id=job_id)
