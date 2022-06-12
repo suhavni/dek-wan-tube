@@ -1,24 +1,10 @@
 import os
 import logging
-from redis import Redis
-from rq import Queue
 import subprocess
 import sys
-# import web_controller
+from . import RedisResource
 
 LOG = logging
-
-class RedisResource:
-    REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
-    host, *port_info = REDIS_QUEUE_LOCATION.split(':')
-    port = tuple()
-    if port_info:
-        port, *_ = port_info
-        port = (int(port),)
-
-    conn = Redis(host=host, *port)
-    extract_queue = Queue('extract', connection=conn)
-    composer_queue = Queue('composer', connection=conn)
 
 def extract_worker(in_filename, out_filename):
     # FIXME: make the file work such that it takes input from MinIO and outputs into MinIO
