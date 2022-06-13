@@ -1,4 +1,4 @@
-from .worker_utility import RedisResource, MINIO_UPDATE, update_status_worker
+from .worker_utility import RedisResource, update_status_worker
 from .compose_worker import compose_worker
 from .minio_update import MINIO_UPDATE
 import subprocess
