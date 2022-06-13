@@ -1,7 +1,7 @@
 from . import RedisResource
 import os
 
-host = os.getenv('WC_HOST', 'localhost')
+host = os.getenv('WC_HOST', '0.0.0.0')
 port = os.getenv('WC_PORT', 5000)
 
 def update_status_worker(job_id, status):

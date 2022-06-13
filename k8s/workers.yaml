@@ -1,15 +1,15 @@
 # GIF Composer Service
-kind: Service
-apiVersion: v1
-metadata:
-  name: p2-compose-worker
-spec:
-  selector:
-    app: p2-compose-worker
-  type:  ClusterIP
-  ports:
-  - protocol: "TCP"
-    port:  6000
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: p2-compose-worker
+# spec:
+#   selector:
+#     app: p2-compose-worker
+#   type:  ClusterIP
+#   ports:
+#   - protocol: "TCP"
+#     port:  6000
 ---
 # GIF Composer Worker Deployment
 apiVersion: apps/v1
@@ -57,17 +57,17 @@ spec:
       - name: dockerconfigjson-github-com
 ---
 # Extract and Resize Worker Service
-kind: Service
-apiVersion: v1
-metadata:
-  name: p2-extract-worker
-spec:
-  selector:
-    app: p2-extract-worker
-  type:  ClusterIP
-  ports:
-  - protocol: "TCP"
-    port:  6000
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: p2-extract-worker
+# spec:
+#   selector:
+#     app: p2-extract-worker
+#   type:  ClusterIP
+#   ports:
+#   - protocol: "TCP"
+#     port:  6000
 ---
 # Extract and Resize Worker Deployment
 apiVersion: apps/v1
@@ -115,17 +115,17 @@ spec:
       - name: dockerconfigjson-github-com
 ---
 # Update Status Worker Service
-kind: Service
-apiVersion: v1
-metadata:
-  name: p2-update-status-worker
-spec:
-  selector:
-    app: p2-update-status-worker
-  type:  ClusterIP
-  ports:
-  - protocol: "TCP"
-    port:  6000
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: p2-update-status-worker
+# spec:
+#   selector:
+#     app: p2-update-status-worker
+#   type:  ClusterIP
+#   ports:
+#   - protocol: "TCP"
+#     port:  6000
 ---
 # Update Status Worker Deployment
 apiVersion: apps/v1
