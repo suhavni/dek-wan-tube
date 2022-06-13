@@ -5,7 +5,7 @@ WORKDIR /install
 # Install all the requirements
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
-RUN pip install --prefix=/install redis rq ffmpeg-python
+RUN pip install --prefix=/install redis rq ffmpeg-python minio
 
 # Stage 2
 FROM python:3.9.12-alpine3.15 as production-stage
