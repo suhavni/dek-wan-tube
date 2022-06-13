@@ -27,6 +27,7 @@ def create_app():
 	with app.app_context():
 		# from .model import Job
 		from .apis import submit_job_api, update_database_api, extract_all_video_api, gif_list_api, get_job_status_api
+		from . import create_buckets
 
 		db.create_all()
 
