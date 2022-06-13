@@ -2,7 +2,7 @@ name: Build Web Controller CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, cs ]
 
 env:
   REGISTRY: ghcr.io

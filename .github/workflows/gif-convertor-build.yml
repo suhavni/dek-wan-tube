@@ -2,7 +2,7 @@ name: Build GIF convertor CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, cs ]
 
 env:
   REGISTRY: ghcr.io

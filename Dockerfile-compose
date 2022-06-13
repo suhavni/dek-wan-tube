@@ -21,7 +21,8 @@ RUN rm -rf /install
 COPY web-controller/worker_compose.py /app/worker.py
 COPY web-controller/web_controller/utils/worker_utility.py /app/web_controller/utils/worker_utility.py
 COPY web-controller/web_controller/utils/__init__.py /app/web_controller/utils/__init__.py
-COPY script/src/ /resources/
+COPY web-controller/web_controller/utils/compose_worker.py /app/web_controller/utils/compose_worker.py
+COPY script/src/ /script/src/
 WORKDIR /app
 
 # How to run it when we start up the box?

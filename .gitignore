@@ -5,6 +5,7 @@
 
 # test resources
 **/resources
+**/tmp
 
 # kubernetes secrets
 k8s/dockerconfigjson.yaml

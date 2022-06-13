@@ -2,25 +2,34 @@ import ffmpeg
 
 import os
 
+def get_output(in_filename: str) -> str:
+    try:
+        return "/".join(in_filename.split('/')[:-1]) + '/Image'
+    except:
+        return 'Image'
+
 def extract_certain_scene(in_filename: str, out_filename:str) -> None:
     probe = ffmpeg.probe(in_filename)
     vid_len = float(probe['streams'][0]['duration'])
     # 9 / 15 because personally i like it more than 2 / 3
     time = 0 if vid_len - (vid_len * 9 / 15) <= 9 else vid_len * 9 / 15
+    output = get_output(in_filename=in_filename)
     (
         ffmpeg
         .input(in_filename, ss=time)
         .filter('scale', 600, -1)
         .filter('fps', fps='6', round='up')
         .trim(start_frame=0, end_frame=60)
-        .output('Image%02d.jpg', start_number=0) # change this
+        .output(f'{output}%02d.jpg', start_number=0) # change this
         .overwrite_output()
         .run(quiet=True)
     )
 
 def gifify_certain_scene(in_filename: str, out_filename: str) -> None:
-    os.system(f'convert -delay 10 -loop 0 Image*.jpg {out_filename}') # change this
-    os.system(f'rm -rf Image*.jpg')
+    output = get_output(in_filename=in_filename)
+
+    os.system(f'convert -delay 10 -loop 0 {output}*.jpg {out_filename}') # change this
+    os.system(f'rm -rf {output}*.jpg')
 
 def generate_thumbnail(in_filename: str, out_filename: str) -> None:
     extract_certain_scene(in_filename=in_filename, out_filename=out_filename)

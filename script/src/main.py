@@ -1,4 +1,5 @@
 import sys
+import traceback
 from utility import *
 
 FUNCTIONS = {
@@ -20,4 +21,5 @@ if __name__ == '__main__':
     try:
         main()
     except:
-        print("Input file was not found")
+        sys.stderr.write(traceback.format_exc())
+        exit(1)
