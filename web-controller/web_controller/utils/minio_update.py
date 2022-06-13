@@ -5,8 +5,8 @@ import os
 class MinioConnect:
 	minio_client = Minio(
 		os.getenv("MINIO_ENDPOINT", "127.0.0.1:9000"),
-		access_key="pkinwza",
-		secret_key="saobangpho1234",
+		access_key=os.getenv("MINIO_ACCES_KEY","pkinwza"),
+		secret_key=os.getenv("MINIO_SECRET_KEY","saobangpho1234"),
 		secure=False
 	)
 

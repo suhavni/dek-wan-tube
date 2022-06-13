@@ -34,8 +34,26 @@ spec:
         image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-compose-worker
         imagePullPolicy: Always
         env:
+        - name: MINIO_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: minio-endpoint
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: username
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: password
         - name: REDIS_QUEUE
-          value: p2-redis-pvc
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: redis-queue
       imagePullSecrets:
       - name: dockerconfigjson-github-com
 ---
@@ -75,8 +93,26 @@ spec:
         image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-extract-worker
         imagePullPolicy: Always
         env:
+        - name: MINIO_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: minio-endpoint
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: username
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: password
         - name: REDIS_QUEUE
-          value: p2-redis-pvc
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: redis-queue
       imagePullSecrets:
       - name: dockerconfigjson-github-com
 ---
@@ -117,6 +153,9 @@ spec:
         imagePullPolicy: Always
         env:
         - name: REDIS_QUEUE
-          value: p2-redis-pvc
+          valueFrom:
+            secretKeyRef:
+              name: p2-web-controller-secret
+              key: redis-queue
       imagePullSecrets:
       - name: dockerconfigjson-github-com
