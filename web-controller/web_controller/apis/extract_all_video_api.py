@@ -31,8 +31,8 @@ def submit_all_videos():
 			mimetype = mimetype.split('/')[0]
 			if (mimetype == 'video'):
 				body = {
-					"input_filename": file_name,
-					"output_filename": file_name.removesuffix(".mp4") + ".gif"
+					"input_file": file_name,
+					"output_file": file_name.removesuffix(".mp4") + ".gif"
 				}
 				job_id = send_to_worker(body)
 				job_ids.append(job_id)

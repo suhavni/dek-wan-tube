@@ -4,7 +4,7 @@ from web_controller import db
 
 def send_to_worker(body):
     in_filename = body.get('input_file', 'input.mp4')
-    out_filename = body.get('output_file', 'output.mp4')
+    out_filename = body.get('output_file', 'output.gif')
 
     # connect to database
     job = Job(
