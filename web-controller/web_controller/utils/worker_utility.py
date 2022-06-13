@@ -1,7 +1,4 @@
-from . import MinioUpdate, RedisResource
-
-MINIO_UPDATE = MinioUpdate()
-     
+from . import RedisResource
 
 def update_status_worker(job_id, status):
     import requests

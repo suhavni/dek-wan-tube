@@ -1,7 +1,7 @@
-import re
 from .worker_utility import RedisResource, MINIO_UPDATE, update_status_worker
 import subprocess
 import os
+from .minio_update import MINIO_UPDATE
 
 def compose_complete(out_filename, job_id, started_log):
     composed_log = RedisResource.update_status_queue.enqueue_call(

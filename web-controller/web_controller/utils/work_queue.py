@@ -1,4 +1,3 @@
-from flask import request
 from .extract_worker import extract_worker, RedisResource
 from web_controller.model import Job
 from web_controller import db

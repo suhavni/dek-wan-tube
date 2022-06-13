@@ -23,6 +23,7 @@ COPY web-controller/web_controller/utils/worker_utility.py /app/web_controller/u
 COPY web-controller/web_controller/utils/__init__.py /app/web_controller/utils/__init__.py
 COPY web-controller/web_controller/utils/compose_worker.py /app/web_controller/utils/compose_worker.py
 COPY web-controller/web_controller/utils/extract_worker.py /app/web_controller/utils/extract_worker.py
+COPY web-controller/web_controller/utils/minio_update.py /app/web_controller/utils/minio_update.py
 COPY script/src/ /script/src/
 WORKDIR /app
 
