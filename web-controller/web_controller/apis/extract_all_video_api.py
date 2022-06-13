@@ -32,7 +32,7 @@ def submit_all_videos():
 			if (mimetype == 'video'):
 				body = {
 					"input_file": file_name,
-					"output_file": file_name.removesuffix(".mp4") + ".gif"
+					"output_file": '.'.join(file_name.split('.')[:-1]) + ".gif"
 				}
 				job_id = send_to_worker(body)
 				job_ids.append(job_id)
