@@ -35,6 +35,7 @@ def extract_complete(in_filename, out_filename, job_id, started_log):
 
 
 def download_and_extract(in_filename, out_filename, job_id):
+    print('submitting status update: Downloading video')
     downloading_log = RedisResource.update_status_queue.enqueue_call(
         update_status_worker, 
         args=[job_id, "Downloading video from MinIO"]

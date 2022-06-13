@@ -4,36 +4,36 @@ services:
     image: redis:5-alpine
     ports:
       - '6379:6379'
-  extract-worker:
-    build:
-      context: .
-      dockerfile: Dockerfile-extract
-    depends_on:
-      - "redis"
-    environment:
-      - REDIS_QUEUE=redis
-  compose-worker:
-    build:
-      context: .
-      dockerfile: Dockerfile-compose
-    depends_on:
-      - "redis"
-    environment:
-      - REDIS_QUEUE=redis
-  update-status-worker:
-    build:
-      context: .
-      dockerfile: Dockerfile-update
-    depends_on:
-      - "redis"
-    environment:
-      - REDIS_QUEUE=redis
-  web-controller:
-    build:
-      context: web-controller
-    depends_on:
-      - "redis"
-    environment:
-      - REDIS_QUEUE=redis
-    ports:
-      - '5000:5000'
+  # extract-worker:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-extract
+  #   depends_on:
+  #     - "redis"
+  #   environment:
+  #     - REDIS_QUEUE=redis
+  # compose-worker:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-compose
+  #   depends_on:
+  #     - "redis"
+  #   environment:
+  #     - REDIS_QUEUE=redis
+  # update-status-worker:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-update
+  #   depends_on:
+  #     - "redis"
+  #   environment:
+  #     - REDIS_QUEUE=redis
+  # web-controller:
+  #   build:
+  #     context: web-controller
+  #   depends_on:
+  #     - "redis"
+  #   environment:
+  #     - REDIS_QUEUE=redis
+  #   ports:
+  #     - '5000:5000'
