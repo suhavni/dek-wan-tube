@@ -6,11 +6,10 @@ metadata:
 spec:
   selector:
     app: p2-compose-worker
-  type:  LoadBalancer
+  type:  ClusterIP
   ports:
   - protocol: "TCP"
     port:  6000
-    targetPort:  5000
 ---
 # GIF Composer Worker Deployment
 apiVersion: apps/v1
@@ -20,7 +19,7 @@ metadata:
   labels:
     app: p2-compose-worker
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: p2-compose-worker
@@ -65,11 +64,10 @@ metadata:
 spec:
   selector:
     app: p2-extract-worker
-  type:  LoadBalancer
+  type:  ClusterIP
   ports:
   - protocol: "TCP"
     port:  6000
-    targetPort:  5000
 ---
 # Extract and Resize Worker Deployment
 apiVersion: apps/v1
@@ -79,7 +77,7 @@ metadata:
   labels:
     app: p2-extract-worker
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: p2-extract-worker
@@ -124,11 +122,10 @@ metadata:
 spec:
   selector:
     app: p2-update-status-worker
-  type:  LoadBalancer
+  type:  ClusterIP
   ports:
   - protocol: "TCP"
     port:  6000
-    targetPort:  5000
 ---
 # Update Status Worker Deployment
 apiVersion: apps/v1
