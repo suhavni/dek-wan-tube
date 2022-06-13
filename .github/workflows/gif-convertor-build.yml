@@ -2,7 +2,7 @@ name: Build GIF convertor CI
 
 on:
   push:
-    branches: [ main, cs ]
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-gif-converter:
-    runs-on: ubuntu-latest
+    runs-on: [ cs ]
     permissions:
       contents: read
       packages: write
