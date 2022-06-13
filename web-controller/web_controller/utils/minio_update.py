@@ -1,4 +1,5 @@
 from minio import Minio
+import os
 
 # needs to be in this file as well
 class MinioConnect:
