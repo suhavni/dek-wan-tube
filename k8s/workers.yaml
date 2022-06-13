@@ -42,6 +42,7 @@ spec:
               key: redis-queue
       imagePullSecrets:
       - name: dockerconfigjson-github-com
+---
 # Extract and Resize Worker Deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -86,6 +87,7 @@ spec:
               key: redis-queue
       imagePullSecrets:
       - name: dockerconfigjson-github-com
+---
 # Update Status Worker Deployment
 apiVersion: apps/v1
 kind: Deployment
