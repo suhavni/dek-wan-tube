@@ -154,5 +154,9 @@ spec:
             secretKeyRef:
               name: p2-web-controller-secret
               key: redis-queue
+        - name: WC_HOST
+          value: p2-web-controller
+        - name: WC_PORT
+          value: 80
       imagePullSecrets:
       - name: dockerconfigjson-github-com

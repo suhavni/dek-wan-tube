@@ -13,4 +13,4 @@ class RedisResource:
     conn = Redis(host=host, *port)
     extract_queue = Queue('extract', connection=conn)
     composer_queue = Queue('composer', connection=conn)
-    update_status_queue = Queue('update_status', connection=conn)
+    update_status_queue = Queue('update_status', connection=conn, is_async=False)
