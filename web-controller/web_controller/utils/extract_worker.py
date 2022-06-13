@@ -35,11 +35,15 @@ def extract_complete(in_filename, out_filename, job_id, started_log):
 
 
 def download_and_extract(in_filename, out_filename, job_id):
-    print('submitting status update: Downloading video')
     downloading_log = RedisResource.update_status_queue.enqueue_call(
         update_status_worker, 
         args=[job_id, "Downloading video from MinIO"]
     )
+
+    print(f'Downloading {in_filename}')
+    print(f'Job ID: {job_id}')
+    print(f'Downloading log: {downloading_log.id}')
+
     MINIO_UPDATE.download_file('video', in_filename, f'{job_id}/')
     
     process = subprocess.Popen(f'python ../script/src/main.py extract ./tmp/{job_id}/{in_filename} ./tmp/{job_id}/{out_filename}', shell=True)
