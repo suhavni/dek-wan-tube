@@ -15,6 +15,13 @@ spec:
             name: p2-minio
             port:
               number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service: 
+            name: p2-web-controller
+            port:
+              number: 80
       - path: /wq
         pathType: Prefix
         backend:

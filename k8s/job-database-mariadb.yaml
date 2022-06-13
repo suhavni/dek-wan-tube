@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: p2-job-database
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - protocol: TCP
     port: 3306

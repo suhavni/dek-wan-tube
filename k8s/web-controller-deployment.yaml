@@ -52,12 +52,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: p2-web-controller-secret
-                key: minio-access-key
+                key: username
           - name: MINIO_SECRET_KEY
             valueFrom:
               secretKeyRef:
                 name: p2-web-controller-secret
-                key: minio-secret-key
+                key: password
           - name: REDIS_QUEUE
             valueFrom:
               secretKeyRef:
