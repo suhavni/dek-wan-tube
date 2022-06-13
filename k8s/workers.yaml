@@ -157,6 +157,6 @@ spec:
         - name: WC_HOST
           value: p2-web-controller
         - name: WC_PORT
-          value: '80'
+          value: '5000'
       imagePullSecrets:
       - name: dockerconfigjson-github-com
