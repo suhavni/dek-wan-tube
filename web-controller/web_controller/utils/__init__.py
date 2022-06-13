@@ -1,6 +1,7 @@
 import os
 from redis import Redis
 from rq import Queue
+from minio import Minio
 
 class RedisResource:
     REDIS_QUEUE_LOCATION = os.getenv('REDIS_QUEUE', 'localhost')
@@ -15,6 +16,7 @@ class RedisResource:
     composer_queue = Queue('composer', connection=conn)
     update_status_queue = Queue('update_status', connection=conn, is_async=False)
 
+# needs to be in this file as well
 class MinioConnect:
 	minio_client = Minio(
 		os.getenv("MINIO_ENDPOINT", "127.0.0.1:9000"),
