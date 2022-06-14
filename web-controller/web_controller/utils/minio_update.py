@@ -24,11 +24,12 @@ class MinioUpdate:
         self.minio_client.make_bucket(bucket_name)
         self.minio_client.make_bucket(f'{bucket_name}/{folder_name}')
 
-    def upload_file(self, bucket_name, file_name, job_id):
+    def upload_file(self, bucket_name, file_name, job_id, metadata=None):
         self.minio_client.fput_object(
             bucket_name,
             f'{job_id}{file_name}',
-            f'./tmp/{job_id}{file_name}'
+            f'./tmp/{job_id}{file_name}',
+            metadata=metadata
         )
 
     def delete_file(self, bucket_name, file_name):
@@ -47,5 +48,5 @@ class MinioUpdate:
 
     def get_presigned_url(self, bucket_name, file_name):
         return self.minio_client.presigned_get_object(bucket_name, file_name)
-        
+
 MINIO_UPDATE = MinioUpdate()

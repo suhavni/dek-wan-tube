@@ -12,13 +12,14 @@ def get_output(in_filename: str) -> str:
 
 
 def extract_complete(in_filename, out_filename, job_id, started_log):
+    metadata = {'Content-type': 'image'}
     extracted_log = RedisResource.update_status_queue.enqueue_call(
         update_status_worker, 
         args=[job_id, "Finished extracting frames. Uploading to MinIO."],
         depends_on=started_log
     )
     
-    [MINIO_UPDATE.upload_file('frames', f'{get_output(in_filename)}{i:02d}.jpg', f'{job_id}/') for i in range(60)]
+    [MINIO_UPDATE.upload_file('frames', f'{get_output(in_filename)}{i:02d}.jpg', f'{job_id}/', metadata=metadata) for i in range(60)]
 
     uploaded_log = RedisResource.update_status_queue.enqueue_call(
         update_status_worker, 
