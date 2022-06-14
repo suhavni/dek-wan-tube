@@ -12,4 +12,9 @@ def get_job_status():
 	job = Job.query.get(job_id)
 	if (job == None):
 		return jsonify(status=f"Job {job_id} does not exist")
-	return jsonify(status=job.status)
+	return jsonify(
+		id=job_id, 
+		inputName=job.input_filename,
+		outputFilename=job.output_filename,
+		status=job.status
+	)
