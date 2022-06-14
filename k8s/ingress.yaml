@@ -22,3 +22,10 @@ spec:
             name: p2-web-controller
             port:
               number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: p2-frontend
+            port:
+              number: 80
