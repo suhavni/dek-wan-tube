@@ -3,17 +3,15 @@
     <div class="justify-center">
       <v-alert
         class="mb-8 mt-2"
-        :value="error !== '' || submitted"
-        :type="submitted ? 'success' : 'error'"
+        :value="error !== '' || success !== ''"
+        :type="success !== '' ? 'success' : 'error'"
         shaped
         dense
         transition="scale-transition"
         dismissible
       >
-        <div v-if="submitted">All videos have been sent to worker</div>
-        <div v-else>
-          {{ error }}
-        </div>
+        <div v-if="success !== ''">{{ success }}</div>
+        <div v-else>{{ error }}</div>
       </v-alert>
     </div>
     <div class="mt-4">
@@ -22,25 +20,25 @@
         <v-spacer></v-spacer>
         <CreateJobAllVideoDialog
           :error.sync="error"
-          :submitted.sync="submitted"
+          :success.sync="success"
         ></CreateJobAllVideoDialog>
       </v-row>
     </div>
     <v-divider class="mt-5"></v-divider>
-    <v-row v-for="n in 3" :key="n" class="mt-5">
-      <v-col v-for="k in 3" :key="k">
+    <v-row class="mt-5">
+      <v-col v-for="video in videos" :key="video.name">
         <v-card class="mx-auto" width="370" elevation="2">
           <iframe
             width="370"
-            src="http://localhost:9000/video/test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=pkinwza%2F20220614%2F%2Fs3%2Faws4_request&X-Amz-Date=20220614T174154Z&X-Amz-Expires=432000&X-Amz-SignedHeaders=host&X-Amz-Signature=8c60ffa0a896ee1e930325ada00d3ffa7975dd39cf4f32e0887d3b5f42cc8341"
+            :src="video.url"
             allowfullscreen
           >
           </iframe>
 
-          <v-card-title class="py-0"> File name </v-card-title>
+          <v-card-title class="py-0"> {{ video.name }} </v-card-title>
 
           <v-card-actions class="justify-end">
-            <CreateJobDialog :button-name="'Create Job'"></CreateJobDialog>
+            <CreateJobDialog :video-name="video.name"></CreateJobDialog>
             <ViewJobStatusDialog></ViewJobStatusDialog>
           </v-card-actions>
         </v-card>
@@ -53,6 +51,7 @@
 import ViewJobStatusDialog from "@/components/ViewJobStatusDialog";
 import CreateJobDialog from "@/components/CreateJobDialog";
 import CreateJobAllVideoDialog from "@/components/CreateJobAllVideoDialog";
+import Vue from "vue";
 
 export default {
   name: "ControlCenterPage",
@@ -61,8 +60,19 @@ export default {
     return {
       dialog: false,
       error: "",
-      submitted: false,
+      success: "",
+      videos: [],
     };
+  },
+
+  async beforeCreate() {
+    let response = await Vue.axios.post("/api/video-list", {
+      bucket_name: "video",
+    });
+    if (response.data.bucket_name === undefined) {
+      this.videos = response.data.videos;
+    }
+    console.log(response.data);
   },
 };
 </script>

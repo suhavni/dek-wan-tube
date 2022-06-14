@@ -42,14 +42,14 @@ export default {
   methods: {
     async createJob() {
       let data = {
-        bucket_name: "gif",
+        bucket_name: "video",
       };
       let response = await Vue.axios.post("/api/submit-all-videos", data);
+      console.log(response.data);
       if (response.data.title !== undefined) {
         this.$emit("update:error", response.data.title);
-        this.error = response.data.title;
       } else {
-        this.$emit("update:submitted", true);
+        this.$emit("update:success", "All videos have been sent to worker");
       }
       this.dialog = false;
     },
