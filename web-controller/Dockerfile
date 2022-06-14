@@ -6,6 +6,9 @@ WORKDIR /install
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 COPY ./web_controller/requirements.txt ./
+
+RUN sed -i 's/http\:\/\/dl-cdn.alpinelinux.org/https\:\/\/alpine.global.ssl.fastly.net/g' /etc/apk/repositories
+
 RUN apk add build-base
 RUN pip install --prefix=/install -r requirements.txt
 
