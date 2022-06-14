@@ -5,7 +5,7 @@ import mimetypes
 mimetypes.init()
 
 
-@app.route("/api/gif-list", methods=['GET'])
+@app.route("/api/gif-list", methods=['GET', 'POST'])
 def list_gif_files():
 	request_bucket = request.json
 	if (request_bucket is None or request_bucket.get("bucket_name", None) is None):

@@ -28,6 +28,7 @@
 
 <script>
 import GifCard from "../components/GifCard";
+import Vue from "vue";
 export default {
   name: "GifFilesPage",
   components: { GifCard },
@@ -35,24 +36,15 @@ export default {
     gifs: [],
   }),
   methods: {
-    getObj(i) {
-      return {
-        id: i,
-        name: "Image " + i,
-        url: !(i % 4)
-          ? "https://ecommerceiq.asia/wp-content/uploads/2020/04/gifs.gif"
-          : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/13532749510923.58b6f17689528.gif",
-      };
-    },
-    initializeRandomList() {
-      this.gifs = [...Array(25).keys()].map((i) => this.getObj(i));
-      // this.gifs = [obj, obj, obj, obj, obj, obj, obj, obj, obj, obj]
-    },
+    async getAllGIFs() {
+      const data = { "bucket_name" : "video" }
+      this.gifs = await Vue.axios.get("/api/gif-list", data)
+    }
   },
   created() {
     // FIXME: change when connected to MinIO
-    this.initializeRandomList();
-  },
+    this.getAllGIFs();
+  }
 };
 </script>
 
