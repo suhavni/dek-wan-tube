@@ -47,6 +47,15 @@ class MinioUpdate:
             print(e)
 
     def get_presigned_url(self, bucket_name, file_name):
-        return self.minio_client.get_presigned_url("GET", bucket_name, file_name)
+        if bucket_name == "gif": 
+            content_type = "image/gif"
+        else:
+             content_type = "video/mp4"
+        return self.minio_client.get_presigned_url(
+            "GET", 
+            bucket_name, 
+            file_name,
+            response_headers={"response-content-type": content_type}
+        )
 
 MINIO_UPDATE = MinioUpdate()
