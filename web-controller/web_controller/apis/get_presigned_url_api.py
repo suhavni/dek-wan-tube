@@ -4,7 +4,7 @@ from flask import current_app as app
 from ..utils.minio_update import MINIO_UPDATE
 
 
-@app.route("/api/get-presigned-url", methods=['GET'])
+@app.route("/api/get-presigned-url", methods=['GET', 'POST'])
 def get_presigned_url():
     body = request.json
     if (body is None or body.get("bucket_name", None) is None or body.get("file_name", None) is None):

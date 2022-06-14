@@ -6,7 +6,7 @@ import mimetypes
 mimetypes.init()
 
 
-@app.route("/api/submit-all-videos", methods=['POST', 'GET'])
+@app.route("/api/submit-all-videos", methods=['POST'])
 def submit_all_videos():
 	# submit job to work queue
 	bucket = request.json

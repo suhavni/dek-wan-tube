@@ -7,12 +7,7 @@
           <v-spacer></v-spacer>
           <v-btn outlined color="#81a36f" class="justify-end">
             Delete All
-            <v-icon
-                right
-                dark
-            >
-              mdi-trash-can-outline
-            </v-icon>
+            <v-icon right dark> mdi-trash-can-outline </v-icon>
           </v-btn>
         </v-row>
       </div>
@@ -20,12 +15,14 @@
       <v-container class="pa-0 mt-3">
         <v-row v-for="i in Math.ceil(gifs.length / 3)" :key="i">
           <v-col v-for="j in 3" :key="j">
-            <gif-card v-if="(i-1)*3+(j-1) < gifs.length" :gif="gifs[(i-1)*3+(j-1)]"></gif-card>
+            <gif-card
+              v-if="(i - 1) * 3 + (j - 1) < gifs.length"
+              :gif="gifs[(i - 1) * 3 + (j - 1)]"
+            ></gif-card>
           </v-col>
         </v-row>
       </v-container>
     </v-container>
-
   </div>
 </template>
 
@@ -40,8 +37,8 @@ export default {
   }),
   methods: {
     async getAllGIFs() {
-      const formData = new FormData( { data: { "bucket_name" : "video" } })
-      this.gifs = await Vue.axios.get("/api/gif-list", formData)
+      const data = { "bucket_name" : "video" }
+      this.gifs = await Vue.axios.get("/api/gif-list", data)
     }
   },
   created() {
