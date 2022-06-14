@@ -24,12 +24,12 @@ class MinioUpdate:
         self.minio_client.make_bucket(bucket_name)
         self.minio_client.make_bucket(f'{bucket_name}/{folder_name}')
 
-    def upload_file(self, bucket_name, file_name, job_id, metadata=None):
+    def upload_file(self, bucket_name, file_name, job_id, content_type=None):
         self.minio_client.fput_object(
             bucket_name,
             f'{job_id}{file_name}',
             f'./tmp/{job_id}{file_name}',
-            metadata=metadata
+            content_type=content_type
         )
 
     def delete_file(self, bucket_name, file_name):

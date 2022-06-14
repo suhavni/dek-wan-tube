@@ -10,9 +10,7 @@ def compose_complete(out_filename, job_id, started_log):
         depends_on=started_log
     )
 
-    print(f'{job_id}/{out_filename}', job_id, out_filename)
-
-    MINIO_UPDATE.upload_file('gif', f'{job_id}/{out_filename}', '', metadata={'Content-type': 'image'})
+    MINIO_UPDATE.upload_file('gif', f'{job_id}/{out_filename}', '', content_type='image/gif')
 
     RedisResource.update_status_queue.enqueue_call(
         update_status_worker,
