@@ -13,7 +13,7 @@ FROM python:3.9.12-alpine3.15 as production-stage
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN apk add --no-cache ffmpeg imagemagick
+RUN apk add --no-cache --update --virtual build-dependencies ffmpeg imagemagick
 COPY --from=build-stage /install /usr/local
 RUN rm -rf /install
 
