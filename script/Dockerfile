@@ -9,8 +9,6 @@ FROM python:3.9.13-alpine3.15 as production-stage
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN sed -i 's/http\:\/\/dl-cdn.alpinelinux.org/https\:\/\/alpine.global.ssl.fastly.net/g' /etc/apk/repositories
-
 RUN apk add --no-cache ffmpeg imagemagick
 COPY --from=build-stage /install /usr/local
 RUN rm -rf /install
