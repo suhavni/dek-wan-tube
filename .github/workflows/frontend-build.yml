@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-frontend:
-    runs-on: [cs]
+    runs-on: ['lol']
     permissions:
       contents: read
       packages: write
