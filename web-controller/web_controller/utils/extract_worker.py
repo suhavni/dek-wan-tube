@@ -7,7 +7,7 @@ import os
 def get_output(in_filename: str) -> str:
     try:
         return "/".join(in_filename.split('/')[:-1]) + 'Image'
-    except:
+    except Exception as _:
         return 'Image'
 
 

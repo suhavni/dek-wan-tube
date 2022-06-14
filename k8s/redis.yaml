@@ -12,12 +12,12 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: p2-redis-pvc
+  name: p2-redis
   labels:
     tier: backend
     layer: redis
 spec:
-  serviceName: p2-redis-pvc
+  serviceName: p2-redis
   selector:
     matchLabels:
       tier: backend
@@ -30,7 +30,7 @@ spec:
         layer: redis
     spec:
       containers:
-      - name: redis
+      - name: p2-redis
         image: redis:5.0.4
         command: ["redis-server", "--appendonly", "yes"]
         ports:
@@ -47,7 +47,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: p2-redis-pvc
+  name: p2-redis
   labels:
     tier: backend
     layer: redis

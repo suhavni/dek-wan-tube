@@ -14,8 +14,9 @@ import subprocess
 try:
     output = subprocess.check_output("\ls --hide='t_*' resources/", shell=True)
     files = output.decode('utf-8').split('\n')
-except:
+except Exception as err:
     files = []
+    print(err)
 
 for f in files:
     if f:
