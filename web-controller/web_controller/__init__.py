@@ -2,9 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from minio import Minio
 import os
-from redis import Redis
-from rq import Queue
-# from .apis import submit_job_api
 
 db = SQLAlchemy()
 
@@ -25,7 +22,7 @@ def create_app():
 
 	db.init_app(app)
 	with app.app_context():
-		# from .model import Job
+		from .model import Job
 		from .apis import submit_job_api, update_database_api, extract_all_video_api, gif_list_api, get_job_status_api
 		from . import create_buckets
 

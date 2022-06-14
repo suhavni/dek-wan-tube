@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask import current_app as app
-from web_controller import *
+from web_controller import db
 from web_controller.model import Job
 
 

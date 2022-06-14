@@ -36,7 +36,7 @@ jobs:
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/p2-extract-worker:${{ steps.vars.outputs.sha_short }}
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/p2-extract-worker:latest
   build-composer-worker:
-    runs-on: ubuntu-latest
+    runs-on: [cs]
     permissions:
       contents: read
       packages: write
@@ -62,7 +62,7 @@ jobs:
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/p2-compose-worker:${{ steps.vars.outputs.sha_short }}
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/p2-compose-worker:latest
   build-update-status-worker:
-    runs-on: ubuntu-latest
+    runs-on: [cs]
     permissions:
       contents: read
       packages: write

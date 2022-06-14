@@ -1,6 +1,6 @@
 import sys
 import traceback
-from utility import *
+from utility import generate_thumbnail, extract_and_gifify, extract_certain_scene, gifify_certain_scene
 
 FUNCTIONS = {
     'generate_thumbnail' : generate_thumbnail,
@@ -20,6 +20,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except:
+    except Exception as _:
         sys.stderr.write(traceback.format_exc())
         exit(1)

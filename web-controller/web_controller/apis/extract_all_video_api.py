@@ -1,9 +1,7 @@
 from flask import request, jsonify
 from flask import current_app as app
-from web_controller import *
-# from web_controller.model import Job
-from web_controller.utils.work_queue import send_to_worker
 from web_controller import MinioConnect
+from web_controller.utils.work_queue import send_to_worker
 import mimetypes
 mimetypes.init()
 

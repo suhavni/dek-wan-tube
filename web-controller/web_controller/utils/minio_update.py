@@ -1,6 +1,5 @@
 from minio import Minio
 import os
-import subprocess
 
 # needs to be in this file as well
 class MinioConnect:

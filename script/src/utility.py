@@ -1,6 +1,6 @@
 import ffmpeg
 
-import os
+import subprocess
 
 def get_output(in_filename: str) -> str:
     try:
@@ -28,8 +28,8 @@ def extract_certain_scene(in_filename: str, out_filename:str) -> None:
 def gifify_certain_scene(in_filename: str, out_filename: str) -> None:
     output = get_output(in_filename=in_filename)
 
-    os.system(f'convert -delay 10 -loop 0 {output}*.jpg {out_filename}') # change this
-    os.system(f'rm -rf {output}*.jpg')
+    subprocess.run(f'convert -delay 10 -loop 0 {output}*.jpg {out_filename}', shell=True) # change this
+    subprocess.run(f'rm -rf {output}*.jpg', shell=True)
 
 def generate_thumbnail(in_filename: str, out_filename: str) -> None:
     extract_certain_scene(in_filename=in_filename, out_filename=out_filename)
@@ -40,8 +40,7 @@ def generate_thumbnail(in_filename: str, out_filename: str) -> None:
 def extract_images(in_filename: str) -> None:
     probe = ffmpeg.probe(in_filename)
     vid_len = float(probe['streams'][0]['duration'])
-    # width = probe['streams'][0]['width']
-    # Set how many spots you want to extract a video from. 
+    # width = probe['streams'][0]['width']    # Set how many spots you want to extract a video from. 
     parts = int(vid_len) if vid_len < 20 else 20
 
     intervals = int(vid_len // parts)
@@ -61,5 +60,5 @@ def extract_images(in_filename: str) -> None:
 def extract_and_gifify(in_filename: str, out_filename: str) -> None:
     extract_images(in_filename=in_filename)
 
-    os.system(f'convert -delay 60 -loop 0 Image*.jpg {out_filename}')
-    os.system(f'rm -rf Image*.jpg')
+    subprocess.system(f'convert -delay 60 -loop 0 Image*.jpg {out_filename}', shell=True)
+    subprocess.system(f'rm -rf Image*.jpg', shell=True)

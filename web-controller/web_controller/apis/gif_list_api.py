@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from flask import current_app as app
-from web_controller import *
 from web_controller import MinioConnect
 import mimetypes
 mimetypes.init()
@@ -21,7 +20,6 @@ def list_gif_files():
 	for file in bucket_objects:
 		file_name = file.object_name
 		mimetype = mimetypes.guess_type(file_name)[0]
-		if (mimetype):
-			if (mimetype == 'image/gif'):
-				gif_files.append(file_name)
+		if mimetype and mimetype == 'image/gif':
+			gif_files.append(file_name)
 	return jsonify(file_names=gif_files)
