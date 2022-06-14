@@ -1,0 +1,67 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: p2-frontend
+spec:
+  selector:
+    app: p2-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p2-frontend
+  labels:
+    app: p2-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: p2-frontend
+  template:
+    metadata:
+      labels:
+        app: p2-frontend
+    spec:
+      containers:
+      - name:  p2-frontend
+        image: ghcr.io/cs-muic/scalable-p2-scalable-t3-code-dek-waen/p2-frontend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        # env:
+        #   - name: FLASK_APP
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: p2-web-controller-secret
+        #         key: application
+        #   - name: FLASK_DATABASE_URI
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: p2-web-controller-secret
+        #         key: dbconnector
+        #   - name: MINIO_ENDPOINT
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: p2-web-controller-secret
+        #         key: minio-endpoint
+        #   - name: MINIO_ACCESS_KEY
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: p2-web-controller-secret
+        #         key: username
+        #   - name: MINIO_SECRET_KEY
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: p2-web-controller-secret
+        #         key: password
+        #   - name: REDIS_QUEUE
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: p2-web-controller-secret
+        #         key: redis-queue
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
