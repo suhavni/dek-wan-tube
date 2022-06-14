@@ -3,11 +3,11 @@
     <v-card max-width="370">
       <v-container @mouseover="onHover = true" @mouseleave="onHover = false" >
         <v-row>
-          <v-img :src="gif.url"></v-img>
+          <v-img :src="url"></v-img>
         </v-row>
         <v-row>
           <v-card-title class="pl-4 pr-4 pt-2 pb-2">
-            {{ gif.name }}
+            {{ gif }}
           </v-card-title>
         </v-row>
         <v-fade-transition>
@@ -33,12 +33,12 @@
             max-width="290"
         >
           <v-card>
-            <v-card-title class="text-h5">
+            <v-card-title>
               Delete GIF?
             </v-card-title>
 
             <v-card-text>
-              Are you sure you want to delete the GIF, {{ gif.name }}?
+              Are you sure you want to delete the GIF, {{ gif }}?
             </v-card-text>
 
             <v-card-actions>
@@ -55,7 +55,7 @@
               <v-btn
                   color="#81a36f"
                   text
-                  @click="dialog = false"
+                  @click="deleteGIF()"
               >
                 Agree
               </v-btn>
@@ -68,13 +68,37 @@
 </template>
 
 <script>
+import Vue from "vue";
+
 export default {
   name: "GifCard",
   props: ["gif"],
   data: () => ({
     onHover: false,
     dialog: false,
+    url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/13532749510923.58b6f17689528.gif',
   }),
+  methods: {
+    async getPresignedURL() {
+      const data = {
+        "bucket_name": "gif",
+        "file_name": this.gif,
+      }
+      this.url = (await Vue.axios.post("/api/get-presigned-url", data)).data.presigned_url;
+      console.log(this.url)
+    },
+    async deleteGIF() {
+      const data = {
+        "bucket_name": "gif",
+        "file_name": this.gif,
+      }
+      await Vue.axios.post('api/delete-gif', data);
+      window.location.reload();
+    }
+  },
+  created() {
+    this.getPresignedURL();
+  }
 };
 </script>
 
