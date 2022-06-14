@@ -47,6 +47,6 @@ class MinioUpdate:
             print(e)
 
     def get_presigned_url(self, bucket_name, file_name):
-        return self.minio_client.presigned_get_object(bucket_name, file_name)
+        return self.minio_client.get_presigned_url("GET", bucket_name, file_name)
 
 MINIO_UPDATE = MinioUpdate()
