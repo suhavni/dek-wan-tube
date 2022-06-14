@@ -12,7 +12,7 @@ def get_presigned_url():
     bucket_name = body.get("bucket_name")
     file_name = body.get("file_name")
     try:
-        presigned_url = MINIO_UPDATE.get_presigned_url(bucket_name, file_name)
-        return jsonify(presigned_url=presigned_url)
+        data, content_type = MINIO_UPDATE.get_presigned_url(bucket_name, file_name)
+        return jsonify(data=data, content_type = content_type)
     except Exception as e:
         return jsonify(error=str(e))

@@ -4,6 +4,7 @@ metadata:
   name: p2-ingress
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/upstream-vhost: minio:9000
 spec:
   rules:
   - http:
