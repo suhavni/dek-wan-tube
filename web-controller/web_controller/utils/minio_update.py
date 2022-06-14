@@ -32,12 +32,20 @@ class MinioUpdate:
         )
 
     def delete_file(self, bucket_name, file_name):
+        print(f'deleting {file_name} from {bucket_name}')
+        
         self.minio_client.remove_object(
             bucket_name,
             file_name
         )
     
-    def delete_folder(self, bucket_name, folder_name):
-        self.minio_client.remove_bucket(f'{bucket_name}/{folder_name}')
+    def delete_all_files(self, bucket_name):
+        try:
+            [self.delete_file(bucket_name, f.object_name) for f in self.minio_client.list_objects(bucket_name, recursive=True)]
+        except Exception as e:
+            print(e)
 
+    def get_presigned_url(self, bucket_name, file_name):
+        return self.minio_client.presigned_get_object(bucket_name, file_name)
+        
 MINIO_UPDATE = MinioUpdate()

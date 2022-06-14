@@ -1,8 +1,6 @@
 from flask import request, jsonify
 from flask import current_app as app
 from web_controller.model import Job
-import mimetypes
-mimetypes.init()
 
 
 @app.route("/api/get-job-status", methods=['GET'])
