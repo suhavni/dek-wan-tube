@@ -1,7 +1,32 @@
 <template>
   <v-container align="start">
-    <h2>All Videos</h2>
-    <v-divider></v-divider>
+    <div class="justify-center">
+      <v-alert
+        class="mb-8 mt-2"
+        :value="error !== '' || submitted"
+        :type="submitted ? 'success' : 'error'"
+        shaped
+        dense
+        transition="scale-transition"
+        dismissible
+      >
+        <div v-if="submitted">All videos have been sent to worker</div>
+        <div v-else>
+          {{ error }}
+        </div>
+      </v-alert>
+    </div>
+    <div class="mt-4">
+      <v-row>
+        <h2>All Videos</h2>
+        <v-spacer></v-spacer>
+        <CreateJobAllVideoDialog
+          :error.sync="error"
+          :submitted.sync="submitted"
+        ></CreateJobAllVideoDialog>
+      </v-row>
+    </div>
+    <v-divider class="mt-5"></v-divider>
     <v-row v-for="n in 3" :key="n" class="mt-5">
       <v-col v-for="k in 3" :key="k">
         <v-card class="mx-auto" width="370" elevation="2">
@@ -27,18 +52,17 @@
 <script>
 import ViewJobStatusDialog from "@/components/ViewJobStatusDialog";
 import CreateJobDialog from "@/components/CreateJobDialog";
+import CreateJobAllVideoDialog from "@/components/CreateJobAllVideoDialog";
 
 export default {
   name: "ControlCenterPage",
-  components: { ViewJobStatusDialog, CreateJobDialog },
+  components: { CreateJobAllVideoDialog, ViewJobStatusDialog, CreateJobDialog },
   data() {
     return {
       dialog: false,
+      error: "",
+      submitted: false,
     };
   },
-
-  // components: {
-  //   HelloWorld,
-  // },
 };
 </script>

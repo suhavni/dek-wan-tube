@@ -1,16 +1,19 @@
 <template>
   <div>
-    <v-btn color="#81a36f" text @click="dialog = true">
-      {{ buttonName }}
+    <v-btn text color="#81a36f" class="justify-end" @click="dialog = true">
+      <v-icon right dark class="mr-2"> mdi-pencil-outline </v-icon>
+      Create Job for All Video
     </v-btn>
     <v-dialog v-model="dialog" max-width="350">
       <v-card>
-        <v-card-title class="text-h5"> Create Job? </v-card-title>
+        <v-card-title class="text-h5">
+          Create Job for All Videos?
+        </v-card-title>
 
         <v-divider class="mx-3"></v-divider>
 
         <v-card-text class="mt-3">
-          Are you sure you want to create job for this video?
+          Are you sure you want to create job for all videos?
         </v-card-text>
 
         <v-card-actions>
@@ -27,9 +30,9 @@
 
 <script>
 import Vue from "vue";
+
 export default {
-  name: "CreateJobDialog",
-  props: ["buttonName", "videoName"],
+  name: "CreateJobAllVideoDialog",
   data() {
     return {
       dialog: false,
@@ -39,10 +42,16 @@ export default {
   methods: {
     async createJob() {
       let data = {
-        bucket_name: "test",
+        bucket_name: "gif",
       };
       let response = await Vue.axios.post("/api/submit-all-videos", data);
-      console.log(response.data);
+      if (response.data.title !== undefined) {
+        this.$emit("update:error", response.data.title);
+        this.error = response.data.title;
+      } else {
+        this.$emit("update:submitted", true);
+      }
+      this.dialog = false;
     },
   },
 };
