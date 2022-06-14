@@ -14,7 +14,7 @@ spec:
           service: 
             name: p2-minio
             port:
-              number: 80
+              number: 9000
       - path: /api
         pathType: Prefix
         backend:
