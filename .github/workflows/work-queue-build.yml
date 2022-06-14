@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-extract-worker:
-    runs-on: ubuntu-latest
+    runs-on: [cs]
     permissions:
       contents: read
       packages: write
