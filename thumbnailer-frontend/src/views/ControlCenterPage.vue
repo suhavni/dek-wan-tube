@@ -43,7 +43,7 @@
               :error.sync="error"
               :success.sync="success"
             ></CreateJobDialog>
-            <ViewJobStatusDialog></ViewJobStatusDialog>
+            <ViewJobStatusDialog :video-name="video.name"></ViewJobStatusDialog>
           </v-card-actions>
         </v-card>
       </v-col>
