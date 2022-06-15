@@ -1,3 +1,4 @@
+import base64
 from minio import Minio
 import os
 
@@ -47,16 +48,15 @@ class MinioUpdate:
         except Exception as e:
             print(e)
 
-    def get_presigned_url(self, bucket_name, file_name):
+    def get_binary_data(self, bucket_name, file_name):
         if bucket_name == "gif": 
             content_type = "image/gif"
         else:
              content_type = "video/mp4"
-        return self.minio_client.get_presigned_url(
-            "GET", 
+        data = self.minio_client.get_data( 
             bucket_name, 
             file_name,
-            response_headers={"Response-Content-Type": content_type}
         )
+        return f"{content_type};base64,{base64.b64encode(data.read()).decode('utf-8')}"
 
 MINIO_UPDATE = MinioUpdate()
