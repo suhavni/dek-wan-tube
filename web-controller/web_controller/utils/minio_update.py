@@ -52,7 +52,11 @@ class MinioUpdate:
             content_type = "image/gif"
         else:
              content_type = "video/mp4"
-        buffer = self.minio_client.get_object(bucket_name, file_name)
-        return buffer.data.decode('utf-8')
+        return self.minio_client.get_presigned_url(
+            "GET", 
+            bucket_name, 
+            file_name,
+            response_headers={"Response-Content-Type": content_type}
+        )
 
 MINIO_UPDATE = MinioUpdate()
