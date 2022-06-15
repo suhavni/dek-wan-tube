@@ -17,6 +17,8 @@
         </v-card-title>
         <v-data-table
           class="mx-5"
+          :loading="tableLoading"
+          loading-text="Loading... Please wait"
           :headers="headers"
           :items="desserts"
           :search="search"
@@ -46,6 +48,7 @@ export default {
   data() {
     return {
       dialog: false,
+      tableLoading: false,
       search: "",
       headers: [
         {
@@ -63,6 +66,8 @@ export default {
   },
   methods: {
     async getStatus() {
+      this.dialog = true;
+      this.tableLoading = true;
       let response_ids = await Vue.axios.post("/api/get-job-ids", {
         input_filename: this.videoName,
       });
@@ -76,7 +81,7 @@ export default {
           this.desserts.push(response_status.data);
         }
       }
-      this.dialog = true;
+      this.tableLoading = false;
     },
     getColor(status) {
       if (status === "Sent to Extract Worker") return "lime darken-2";
