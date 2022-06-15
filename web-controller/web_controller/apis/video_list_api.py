@@ -2,6 +2,7 @@ from datetime import timedelta
 from flask import request, jsonify
 from flask import current_app as app
 from web_controller import MinioConnect
+from ..utils.minio_update import MINIO_UPDATE
 import mimetypes
 mimetypes.init()
 
@@ -28,15 +29,10 @@ def list_all_videos():
 		if (mimetype):
 			mimetype = mimetype.split('/')[0]
 			if (mimetype == 'video'):
-				url = minio_connector.presigned_get_object(
-					bucket_name=request_bucket_name,
-					object_name=file_name,
-					expires=timedelta(hours=24)
-				)
 				videos.append(
 					{
 						"name": file_name,
-						"video_url": url
+						"video_url": MINIO_UPDATE.get_binary_data(request_bucket_name, file_name),
 					}
 				)
 	return jsonify(videos=videos)

@@ -48,11 +48,13 @@ class MinioUpdate:
         except Exception as e:
             print(e)
 
-    def get_binary_data(self, bucket_name, file_name):
+    def get_binary_data(self, bucket_name, file_name, mimetype=None):
         if bucket_name == "gif": 
             content_type = "image/gif"
-        else:
+        elif mimetype is None:
              content_type = "video/mp4"
+        else:
+            content_type = mimetype
         data = self.minio_client.get_object( 
             bucket_name, 
             file_name,
