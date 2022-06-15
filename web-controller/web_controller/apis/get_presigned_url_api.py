@@ -13,6 +13,7 @@ def get_presigned_url():
     file_name = body.get("file_name")
     try:
         presigned_url = MINIO_UPDATE.get_presigned_url(bucket_name, file_name)
-        return jsonify(presigned_url=presigned_url)
+        response = _http.urlopen('GET', presigned_url)
+        return jsonify(resp=response, presigned_url=presigned_url)
     except Exception as e:
         return jsonify(error=str(e))

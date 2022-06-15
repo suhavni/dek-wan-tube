@@ -52,8 +52,7 @@ class MinioUpdate:
             content_type = "image/gif"
         else:
              content_type = "video/mp4"
-        return self.minio_client.get_presigned_url(
-            "GET", 
+        return self.minio_client.presigned_get_object(
             bucket_name, 
             file_name,
             response_headers={"response-content-type": content_type}
