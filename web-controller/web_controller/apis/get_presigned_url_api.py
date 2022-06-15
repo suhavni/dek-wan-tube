@@ -4,7 +4,7 @@ from flask import current_app as app
 from ..utils.minio_update import MINIO_UPDATE
 
 
-@app.route("/api/get-presigned-url", methods=['GET', 'POST'])
+@app.route("/api/get-binary-data", methods=['GET', 'POST'])
 def get_presigned_url():
     body = request.json
     if (body is None or body.get("bucket_name", None) is None or body.get("file_name", None) is None):
@@ -12,7 +12,7 @@ def get_presigned_url():
     bucket_name = body.get("bucket_name")
     file_name = body.get("file_name")
     try:
-        presigned_url = MINIO_UPDATE.get_presigned_url(bucket_name, file_name)
-        return jsonify(presigned_url=presigned_url)
+        binary = MINIO_UPDATE.get_binary_data(bucket_name, file_name)
+        return jsonify(binary_data=binary)
     except Exception as e:
         return jsonify(error=str(e))
