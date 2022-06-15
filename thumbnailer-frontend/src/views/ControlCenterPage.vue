@@ -38,7 +38,11 @@
           <v-card-title class="py-0"> {{ video.name }} </v-card-title>
 
           <v-card-actions class="justify-end">
-            <CreateJobDialog :video-name="video.name"></CreateJobDialog>
+            <CreateJobDialog
+              :video-name="video.name"
+              :error.sync="error"
+              :success.sync="success"
+            ></CreateJobDialog>
             <ViewJobStatusDialog></ViewJobStatusDialog>
           </v-card-actions>
         </v-card>

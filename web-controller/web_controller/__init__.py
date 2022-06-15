@@ -25,7 +25,7 @@ def create_app():
 		from .model import Job
 		from .apis import submit_job_api, update_database_api, \
 			extract_all_video_api, gif_list_api, get_job_status_api, \
-			delete_gif_api, get_presigned_url_api, video_list_api
+			delete_gif_api, get_presigned_url_api, video_list_api, get_all_job_ids
 		from . import create_buckets
 
 		db.create_all()
