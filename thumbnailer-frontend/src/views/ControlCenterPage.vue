@@ -64,7 +64,7 @@
                 :success.sync="success"
               ></CreateJobDialog>
               <ViewJobStatusDialog
-                :video-name="video.name"
+                :video-name="video"
               ></ViewJobStatusDialog>
             </v-card-actions>
           </v-card>
