@@ -51,7 +51,12 @@ export default {
       } else {
         this.$emit(
           "update:success",
-          "[" + this.videoName + "]: " + "Job " + response.data.job_id + " created"
+          "[" +
+            this.videoName +
+            "]: " +
+            "Job " +
+            response.data.job_id +
+            " created"
         );
       }
       console.log(response.data);
