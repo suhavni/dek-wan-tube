@@ -57,6 +57,6 @@ class MinioUpdate:
             bucket_name, 
             file_name,
         )
-        return f"{content_type};base64,{base64.b64encode(data.read()).decode('utf-8')}"
+        return f"data:{content_type};base64,{base64.b64encode(data.read()).decode('utf-8')}"
 
 MINIO_UPDATE = MinioUpdate()
