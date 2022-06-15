@@ -84,9 +84,9 @@ export default {
         "bucket_name": "gif",
         "file_name": this.gif,
       }
-      this.url = (await Vue.axios.post("/api/get-presigned-url", data)).data;
-      console.log(this.url)
-      this.url = this.url.presigned_url
+      this.url = (await Vue.axios.post("/api/get-binary-data", data)).data;
+      console.log("BINARY DATA", this.url);
+      this.url = this.url.binary_data;
     },
     async deleteGIF() {
       const data = {

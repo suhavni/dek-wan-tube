@@ -53,7 +53,7 @@ class MinioUpdate:
             content_type = "image/gif"
         else:
              content_type = "video/mp4"
-        data = self.minio_client.get_data( 
+        data = self.minio_client.get_object( 
             bucket_name, 
             file_name,
         )
