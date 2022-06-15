@@ -1,54 +1,69 @@
 <template>
-  <v-container align="start">
-    <div class="justify-center">
-      <v-alert
-        class="mb-8 mt-2"
-        :value="error !== '' || success !== ''"
-        :type="success !== '' ? 'success' : 'error'"
-        shaped
-        dense
-        transition="scale-transition"
-        dismissible
-      >
-        <div v-if="success !== ''">{{ success }}</div>
-        <div v-else>{{ error }}</div>
-      </v-alert>
-    </div>
-    <div class="mt-4">
-      <v-row>
-        <h2>All Videos</h2>
-        <v-spacer></v-spacer>
-        <CreateJobAllVideoDialog
-          :error.sync="error"
-          :success.sync="success"
-        ></CreateJobAllVideoDialog>
+  <div>
+    <v-container v-if="videos.length !== 0" align="start">
+      <div class="justify-center">
+        <v-alert
+          class="mb-8 mt-2"
+          :value="error !== '' || success !== ''"
+          :type="success !== '' ? 'success' : 'error'"
+          shaped
+          dense
+          transition="scale-transition"
+          dismissible
+        >
+          <div v-if="success !== ''">{{ success }}</div>
+          <div v-else>{{ error }}</div>
+        </v-alert>
+      </div>
+      <div class="mt-4">
+        <v-row>
+          <h2>All Videos</h2>
+          <v-spacer></v-spacer>
+          <CreateJobAllVideoDialog
+            :error.sync="error"
+            :success.sync="success"
+          ></CreateJobAllVideoDialog>
+        </v-row>
+      </div>
+      <v-divider class="mt-5"></v-divider>
+      <v-row class="mt-5">
+        <v-col v-for="video in videos" :key="video.name">
+          <v-card class="mx-auto" width="370" elevation="2">
+            <iframe width="370" :src="video.url" allowfullscreen> </iframe>
+
+            <v-card-title class="py-0"> {{ video.name }} </v-card-title>
+
+            <v-card-actions class="justify-end">
+              <CreateJobDialog
+                :video-name="video.name"
+                :error.sync="error"
+                :success.sync="success"
+              ></CreateJobDialog>
+              <ViewJobStatusDialog
+                :video-name="video.name"
+              ></ViewJobStatusDialog>
+            </v-card-actions>
+          </v-card>
+        </v-col>
       </v-row>
-    </div>
-    <v-divider class="mt-5"></v-divider>
-    <v-row class="mt-5">
-      <v-col v-for="video in videos" :key="video.name">
-        <v-card class="mx-auto" width="370" elevation="2">
-          <iframe
-            width="370"
-            :src="video.url"
-            allowfullscreen
-          >
-          </iframe>
-
-          <v-card-title class="py-0"> {{ video.name }} </v-card-title>
-
-          <v-card-actions class="justify-end">
-            <CreateJobDialog
-              :video-name="video.name"
-              :error.sync="error"
-              :success.sync="success"
-            ></CreateJobDialog>
-            <ViewJobStatusDialog :video-name="video.name"></ViewJobStatusDialog>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+    </v-container>
+    <v-container v-else>
+      <h2>All Videos</h2>
+      <v-divider class="mt-5"></v-divider>
+      <v-card color="#00000000" elevation="0">
+        <v-card-title class="justify-center">No Videos Found</v-card-title>
+        <v-card-text class="text-center"
+          >Please upload at Minio Storage</v-card-text
+        >
+        <v-row no-gutters justify="space-around">
+          <v-img
+            src="https://www.roots.tech/web/image/13846-cb303eb9/No%20data-cuate.png"
+            max-width="370"
+          />
+        </v-row>
+      </v-card>
+    </v-container>
+  </div>
 </template>
 
 <script>
