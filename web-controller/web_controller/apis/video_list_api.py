@@ -29,10 +29,5 @@ def list_all_videos():
 		if (mimetype):
 			mimetype = mimetype.split('/')[0]
 			if (mimetype == 'video'):
-				videos.append(
-					{
-						"name": file_name,
-						"video_url": MINIO_UPDATE.get_binary_data(request_bucket_name, file_name),
-					}
-				)
+				videos.append(file_name)
 	return jsonify(videos=videos)

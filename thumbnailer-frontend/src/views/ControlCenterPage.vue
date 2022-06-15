@@ -15,6 +15,26 @@
           <div v-else>{{ error }}</div>
         </v-alert>
       </div>
+      <v-dialog
+        v-model="videoLoading"
+        hide-overlay
+        persistent
+        width="300"
+      >
+        <v-card
+          color="primary"
+          dark
+        >
+          <v-card-text>
+            Please stand by
+            <v-progress-linear
+              indeterminate
+              color="white"
+              class="mb-0"
+            ></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
       <div class="mt-4">
         <v-row>
           <h2>All Videos</h2>
@@ -29,9 +49,13 @@
       <v-row class="mt-5">
         <v-col v-for="video in videos" :key="video.name">
           <v-card class="mx-auto" width="370" elevation="2">
-            <iframe width="370" :src="video.url" allowfullscreen> </iframe>
-
-            <v-card-title class="py-0"> {{ video.name }} </v-card-title>
+            <v-img
+              class="white--text align-end"
+              height="200px"
+              src="https://i.ytimg.com/vi/40IC2n5FBag/maxresdefault.jpg"
+            >
+              <v-card-title>{{ video }}</v-card-title>
+            </v-img>
 
             <v-card-actions class="justify-end">
               <CreateJobDialog
@@ -81,6 +105,7 @@ export default {
       error: "",
       success: "",
       videos: [],
+      videoLoading: true,
     };
   },
 
@@ -91,6 +116,7 @@ export default {
     if (response.data.bucket_name === undefined) {
       this.videos = response.data.videos;
     }
+    this.videoLoading = false;
     console.log(response.data);
   },
 };

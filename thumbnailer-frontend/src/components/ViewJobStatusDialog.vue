@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-btn color="#81a36f" text @click="getStatus()"> View Job Status </v-btn>
+    <v-btn color="#81a36f" text @click="getStatus()">
+      <v-icon right dark class="mr-2"> mdi-account-details-outline </v-icon>
+      View Job Status
+    </v-btn>
     <v-dialog v-model="dialog" max-width="800">
       <v-card>
         <v-card-title class="text-h5">

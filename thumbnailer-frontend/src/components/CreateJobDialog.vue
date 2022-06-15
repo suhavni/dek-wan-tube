@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-btn color="#81a36f" text @click="dialog = true"> Create Job </v-btn>
+    <v-btn color="#81a36f" text @click="dialog = true">
+      <v-icon right dark class="mr-2"> mdi-plus-circle-outline </v-icon>
+      Create Job
+    </v-btn>
     <v-dialog v-model="dialog" max-width="350">
       <v-card>
         <v-card-title class="text-h5"> Create Job? </v-card-title>
