@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import ControlCenterPage from "@/views/ControlCenterPage";
 import GifFilesPage from "@/views/GifFilesPage";
-import JobsPage from "@/views/JobsPage";
 
 Vue.use(VueRouter);
 
@@ -16,11 +15,6 @@ const routes = [
     path: "/gif-files",
     name: "GIF Files",
     component: GifFilesPage,
-  },
-  {
-    path: "/jobs",
-    name: "Jobs",
-    component: JobsPage,
   },
 ];
 

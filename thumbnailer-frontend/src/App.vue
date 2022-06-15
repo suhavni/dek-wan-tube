@@ -12,27 +12,7 @@
         />
 
         <h2>Dek Wan Tube (เด็กแว๊นทูป)</h2>
-
-<!--        <v-img-->
-<!--          alt="Vuetify Name"-->
-<!--          class="shrink mt-1 hidden-sm-and-down"-->
-<!--          contain-->
-<!--          min-width="100"-->
-<!--          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"-->
-<!--          width="100"-->
-<!--        />-->
       </div>
-
-      <!--      <v-spacer></v-spacer>-->
-
-      <!--      <v-btn-->
-      <!--        href="https://github.com/vuetifyjs/vuetify/releases/latest"-->
-      <!--        target="_blank"-->
-      <!--        text-->
-      <!--      >-->
-      <!--        <span class="mr-2">Latest Release</span>-->
-      <!--        <v-icon>mdi-open-in-new</v-icon>-->
-      <!--      </v-btn>-->
     </v-app-bar>
     <v-navigation-drawer color="#E8F5E9" permanent expand-on-hover absolute>
       <v-list-item class="mt-16">
@@ -82,7 +62,6 @@ export default {
         link: "/",
       },
       { title: "GIF Files", icon: "mdi-image", link: "/gif-files" },
-      { title: "Jobs", icon: "mdi-account-hard-hat", link: "/jobs" },
     ],
     right: null,
   }),
