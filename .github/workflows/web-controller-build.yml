@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-web-controller:
-    runs-on: ['lol']
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
